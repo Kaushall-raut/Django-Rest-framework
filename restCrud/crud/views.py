@@ -38,3 +38,16 @@ def putApi(request,pk):
       serializer.save()
       return Response(serializer.data)
    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['DELETE'])
+def deleteApi(request,pk):
+   try:
+      data=Student.objects.get(id=pk)
+   except Student.DoesNotExist:
+      return Response("data does not exist",status=status.HTTP_404_NOT_FOUND)
+   
+   data.delete()
+
+   return Response("data deleted" , status=status.HTTP_204_NO_CONTENT)
+
+   
